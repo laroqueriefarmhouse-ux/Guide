@@ -108,16 +108,16 @@ const T={
  fr:{title:"Fiche d’arrivée",lede:"Pour préparer votre séjour.",
   intro:"Merci de compléter cette fiche avant votre arrivée. Les champs marqués d’un * sont obligatoires.",
   last:"Nom",first:"Prénom",addr:"Adresse",zip:"Code postal",city:"Ville",email:"E-mail",tel:"Téléphone",diet:"Contraintes ou allergies alimentaires",dietH:"Si vous avez réservé la table du chef. Facultatif.",dietL:"Contraintes / allergies",
-  send:"Envoyer ma fiche",hint:"Votre messagerie s’ouvre avec la fiche déjà rédigée : il ne reste qu’à appuyer sur Envoyer.",
+  send:"Envoyer ma fiche",sending:"Envoi en cours…",errSend:"L’envoi n’a pas fonctionné.",errMail:"Envoyer plutôt par e-mail",hint:"Vos informations nous parviennent directement et restent confidentielles.",
   errMissing:"Merci de remplir tous les champs.",errEmail:"L’adresse e-mail ne semble pas valide.",errTel:"Le numéro de téléphone ne semble pas valide.",
-  doneT:"Merci !",doneP:"Pensez à appuyer sur Envoyer dans votre messagerie. Nous avons hâte de vous accueillir à La Roquerie.",again:"Modifier ma fiche",
+  doneT:"Merci !",doneP:"Vos informations nous sont bien parvenues. Nous avons hâte de vous accueillir à La Roquerie.",again:"Modifier ma fiche",
   subject:"Fiche d’arrivée",head:"Fiche d’arrivée – La Roquerie Farmhouse"},
  en:{title:"Arrival form",lede:"To prepare for your stay.",
   intro:"Please complete this form before you arrive. Fields marked * are required.",
   last:"Last name",first:"First name",addr:"Address",zip:"Postcode",city:"Town / city",email:"Email",tel:"Phone",diet:"Dietary requirements or allergies",dietH:"If you have booked the chef’s table. Optional.",dietL:"Dietary requirements",
-  send:"Send my form",hint:"Your email app opens with the form already written: just tap Send.",
+  send:"Send my form",sending:"Sending…",errSend:"Sending didn’t work.",errMail:"Send by email instead",hint:"Your details come straight to us and are kept confidential.",
   errMissing:"Please fill in every field.",errEmail:"This email address doesn’t look right.",errTel:"This phone number doesn’t look right.",
-  doneT:"Thank you!",doneP:"Remember to tap Send in your email app. We look forward to welcoming you to La Roquerie.",again:"Edit my form",
+  doneT:"Thank you!",doneP:"Your details have reached us. We look forward to welcoming you to La Roquerie.",again:"Edit my form",
   subject:"Arrival form",head:"Arrival form – La Roquerie Farmhouse"}
 };
 let lang="fr";
@@ -145,11 +145,19 @@ f.addEventListener("submit",e=>{
   else if(v.tel.replace(/[^0-9]/g,"").length<8){msg=T[lang].errTel;first=f.tel;f.tel.closest("label").classList.add("bad");}
   if(msg){err.textContent=msg; first.focus(); return;}
   const L=T[lang];
-  const body=[L.head,"",
-    `${L.last} : ${v.last}`,`${L.first} : ${v.first}`,`${L.addr} : ${v.addr}`,
-    `${L.zip} : ${v.zip}`,`${L.city} : ${v.city}`,`${L.email} : ${v.email}`,`${L.tel} : ${v.tel}`].concat(f.diet.value.trim()?["",`${L.dietL} : ${f.diet.value.trim()}`]:[]).join("\n");
-  location.href=`mailto:${MAIL}?subject=${encodeURIComponent(L.subject+" – "+v.first+" "+v.last)}&body=${encodeURIComponent(body)}`;
-  setTimeout(()=>{f.style.display="none";document.getElementById("done").style.display="block";},600);
+  const diet=f.diet.value.trim();
+  const body=[L.head,"",`${L.last} : ${v.last}`,`${L.first} : ${v.first}`,`${L.addr} : ${v.addr}`,`${L.zip} : ${v.zip}`,`${L.city} : ${v.city}`,`${L.email} : ${v.email}`,`${L.tel} : ${v.tel}`].concat(diet?["",`${L.dietL} : ${diet}`]:[]).join("\n");
+  const btn=f.querySelector(".send"); btn.disabled=true; btn.textContent=L.sending;
+  const data={_subject:`${L.subject} – ${v.first} ${v.last}`,_template:"table",_captcha:"false",_replyto:v.email};
+  data[L.last]=v.last; data[L.first]=v.first; data[L.addr]=v.addr; data[L.zip]=v.zip; data[L.city]=v.city; data[L.email]=v.email; data[L.tel]=v.tel; data[L.dietL]=diet||"—"; data["Langue"]=lang.toUpperCase();
+  fetch("https://formsubmit.co/ajax/"+MAIL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)})
+   .then(r=>r.json()).then(j=>{
+     if(j&&String(j.success)==="true"){f.style.display="none";document.getElementById("done").style.display="block";window.scrollTo(0,0);}
+     else throw new Error("fail");
+   }).catch(()=>{
+     err.innerHTML="";err.append(L.errSend+" ");
+     const a=document.createElement("a"); a.href=`mailto:${MAIL}?subject=${encodeURIComponent(data._subject)}&body=${encodeURIComponent(body)}`; a.textContent=L.errMail; a.style.color="inherit"; err.append(a);
+   }).finally(()=>{btn.disabled=false;btn.textContent=L.send;});
 });
 document.getElementById("again").onclick=e=>{e.preventDefault();document.getElementById("done").style.display="none";f.style.display="block";};
 apply();
