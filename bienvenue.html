@@ -171,7 +171,8 @@ const T={
   contactTxt:"A question or anything you need during your stay? Message or call us.",
   call:"Call La Roquerie",maps:"Directions",urgent:"Emergencies",eu:"European emergency number"}
 };
-const SRC={bar:l=>`honesty-bar.html?embed=1&lang=${l}`, guide:l=>l==="en"?"en.html?embed=1":"index.html?embed=1"};
+const V="2026-09-28b";
+const SRC={bar:l=>`honesty-bar.html?embed=1&lang=${l}&v=${V}`, guide:l=>(l==="en"?"en.html":"index.html")+"?embed=1&v="+V};
 let lang="fr";
 try{const s=localStorage.getItem("hb-lang"); if(s==="fr"||s==="en") lang=s;}catch(e){}
 if(!/^fr/i.test(navigator.language||"fr")){ try{ if(!localStorage.getItem("hb-lang")) lang="en"; }catch(e){ lang="en"; } }
