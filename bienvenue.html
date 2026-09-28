@@ -109,6 +109,7 @@ body{font-weight:500}
 .acts a{display:inline-block!important;width:auto!important;font:500 13.5px var(--sans)!important;letter-spacing:.05em;padding:10px 22px!important;border-radius:22px!important}
 .copy{font-size:12px!important;padding:4px 11px!important}
 .must .acts a#formLink{background:#A9BDA2!important;color:#1E3A28!important;border-color:#A9BDA2!important;font-weight:500}
+.reqtag{font:500 12px var(--sans);letter-spacing:.08em;color:#D2AE74;vertical-align:middle;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -142,7 +143,7 @@ body{font-weight:500}
       </div>
 
       <div class="block must">
-        <h2 data-t="formT"></h2>
+        <h2><span data-t="formT"></span> <span class="reqtag" data-t="formReq"></span></h2>
         <p class="small" data-t="formTxt"></p>
         <div class="acts"><a class="primary" id="formLink" href="fiche-arrivee.html" target="_top" data-t="formBtn"></a></div>
       </div>
@@ -188,16 +189,16 @@ body{font-weight:500}
 const T={
  fr:{tBar:"Honesty Bar",tGuide:"Alentours",tInfos:"Bienvenue",welcome:"Bienvenue",
   lede:"Make yourself at home.",network:"Réseau",password:"Mot de passe",copy:"Copier",copied:"Copié",
-  hours:"Horaires",checkin:"Arrivée",checkout:"Départ",inT:"à partir de 16 h",outT:"avant 11 h",addr:"Adresse",gate:"Accès à la propriété",gateCode:"Code du portail",gateTxt:"Le même code ouvre et ferme le portail.",breakfast:"Petit-déjeuner",contact:"Nous joindre",formT:"Avant votre arrivée ✣",formTxt:"Quelques détails à nous confier (obligatoire) pour préparer au mieux votre séjour à la Farmhouse.",formBtn:"Compléter mes informations",
+  hours:"Horaires",checkin:"Arrivée",checkout:"Départ",inT:"à partir de 16 h",outT:"avant 11 h",addr:"Adresse",gate:"Accès à la propriété",gateCode:"Code du portail",gateTxt:"Le même code ouvre et ferme le portail.",breakfast:"Petit-déjeuner",contact:"Nous joindre",formT:"Avant votre arrivée",formReq:"* obligatoire",formTxt:"Quelques détails à nous confier pour préparer au mieux votre séjour à la Farmhouse.",formBtn:"Compléter mes informations",
   contactTxt:"Une question, un besoin pendant votre séjour ? Écrivez-nous ou appelez-nous.",
   call:"Appeler La Roquerie",maps:"Itinéraire",urgent:"Urgences",eu:"Numéro d’urgence européen"},
  en:{tBar:"Honesty Bar",tGuide:"Local guide",tInfos:"Welcome",welcome:"Welcome",
   lede:"Make yourself at home.",network:"Network",password:"Password",copy:"Copy",copied:"Copied",
-  hours:"Times",checkin:"Check-in",checkout:"Check-out",inT:"from 4 pm",outT:"by 11 am",addr:"Address",gate:"Getting in",gateCode:"Gate code",gateTxt:"The same code opens and closes the gate.",breakfast:"Breakfast",contact:"Get in touch",formT:"Before you arrive ✣",formTxt:"A few details to share with us (required) so we can prepare your stay at the Farmhouse.",formBtn:"Complete my details",
+  hours:"Times",checkin:"Check-in",checkout:"Check-out",inT:"from 4 pm",outT:"by 11 am",addr:"Address",gate:"Getting in",gateCode:"Gate code",gateTxt:"The same code opens and closes the gate.",breakfast:"Breakfast",contact:"Get in touch",formT:"Before you arrive",formReq:"* required",formTxt:"A few details to share with us so we can prepare your stay at the Farmhouse.",formBtn:"Complete my details",
   contactTxt:"A question or anything you need during your stay? Message or call us.",
   call:"Call La Roquerie",maps:"Directions",urgent:"Emergencies",eu:"European emergency number"}
 };
-const V="2026-09-28h";
+const V="2026-09-28i";
 const SRC={bar:l=>`honesty-bar.html?embed=1&lang=${l}&v=${V}`, guide:l=>(l==="en"?"en.html":"index.html")+"?embed=1&v="+V};
 let lang="fr";
 try{const s=localStorage.getItem("hb-lang"); if(s==="fr"||s==="en") lang=s;}catch(e){}
