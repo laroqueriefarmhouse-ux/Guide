@@ -110,6 +110,30 @@ body{font-weight:500}
 .copy{font-size:12px!important;padding:4px 11px!important}
 .must .acts a#formLink{background:#A9BDA2!important;color:#1E3A28!important;border-color:#A9BDA2!important;font-weight:500}
 .reqtag{font:500 12px var(--sans);letter-spacing:.08em;color:#D2AE74;vertical-align:middle;white-space:nowrap}
+.prep .mom{padding:14px 0;border-top:1px solid var(--lineD)}
+.prep .mom:first-of-type{border-top:0}
+.mt{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.mt h3{margin:0;font-weight:500;font-size:20px}
+.mp{font:500 13px var(--sans);color:#C9D8C6;white-space:nowrap}
+.md{margin:4px 0 10px;font-size:16.5px;line-height:1.4;color:#C9D8C6;font-style:italic}
+.ask{font:500 13px var(--sans);letter-spacing:.05em;padding:8px 18px;border-radius:20px;border:1px solid rgba(237,231,218,.5);background:transparent;color:var(--cream);cursor:pointer}
+.sheet{position:fixed;inset:0;z-index:20;background:rgba(10,18,13,.6);display:none;align-items:flex-end;justify-content:center}
+.sheet.open{display:flex}
+.spanel{background:#16231A;color:var(--cream);width:100%;max-width:600px;max-height:90vh;overflow:auto;padding:22px 22px calc(22px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(143,176,147,.4)}
+.spanel h3{margin:0;font-weight:500;font-size:24px}
+.f{display:flex;flex-direction:column;gap:3px;margin-top:14px;font:13px var(--sans);color:#C9D8C6}
+.f input,.f textarea{font:18px var(--serif);font-weight:500;color:var(--cream);background:transparent;border:0;border-bottom:1px solid #8FB093;border-radius:0;padding:6px 0;width:100%}
+.f textarea{border:1px solid rgba(143,176,147,.5);border-radius:4px;padding:8px 10px;resize:vertical}
+.f input:focus,.f textarea:focus{outline:none;border-color:var(--cream)}
+.prow{flex-direction:row;align-items:center;justify-content:space-between}
+.stp{display:flex;align-items:center;border:1px solid #4E6A54;border-radius:22px}
+.stp button{width:36px;height:36px;border:0;background:transparent;color:var(--cream);font:500 18px var(--sans);cursor:pointer}
+.stp button:disabled{color:#4E6A54}
+.stp output{min-width:22px;text-align:center;font:500 15px var(--sans)}
+.serr{font:14px var(--sans);color:#E8A898;min-height:1em;margin:12px 0 0}
+.sacts{margin-top:10px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f input[type=date]{color-scheme:dark;min-height:38px}
 </style>
 </head>
 <body>
@@ -146,6 +170,31 @@ body{font-weight:500}
         <h2><span data-t="formT"></span> <span class="reqtag" data-t="formReq"></span></h2>
         <p class="small" data-t="formTxt"></p>
         <div class="acts"><a class="primary" id="formLink" href="fiche-arrivee.html" target="_top" data-t="formBtn"></a></div>
+      </div>
+
+      <div class="block prep">
+        <h2 data-t="prepT"></h2>
+        <p class="small" data-t="prepTxt"></p>
+        <div class="mom">
+          <div class="mt"><h3 data-t="gouterT"></h3><span class="mp" data-t="gouterP"></span></div>
+          <p class="md" data-t="gouterD"></p>
+          <button class="ask" type="button" data-k="gouter" data-t="gouterB"></button>
+        </div>
+        <div class="mom">
+          <div class="mt"><h3 data-t="picnicT"></h3><span class="mp" data-t="picnicP"></span></div>
+          <p class="md" data-t="picnicD"></p>
+          <button class="ask" type="button" data-k="picnic" data-t="picnicB"></button>
+        </div>
+        <div class="mom">
+          <div class="mt"><h3 data-t="tableT"></h3><span class="mp" data-t="tableP"></span></div>
+          <p class="md" data-t="tableD"></p>
+          <button class="ask" type="button" data-k="table" data-t="tableB"></button>
+        </div>
+        <div class="mom">
+          <div class="mt"><h3 data-t="customT"></h3><span class="mp" data-t="customP"></span></div>
+          <p class="md" data-t="customD"></p>
+          <button class="ask" type="button" data-k="custom" data-t="customB"></button>
+        </div>
       </div>
 
       <div class="block">
@@ -185,20 +234,40 @@ body{font-weight:500}
     </div>
   </section>
 </main>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sT">
+  <div class="spanel">
+    <h3 id="sT"></h3>
+    <p class="small" id="sSub"></p>
+    <label class="f"><span data-t="fName"></span><input id="rName" autocomplete="name"></label>
+    <label class="f"><span data-t="fRoom"></span><input id="rRoom" autocomplete="off"></label>
+    <div class="f2"><label class="f"><span data-t="fArr"></span><input id="rArr" type="date"></label><label class="f"><span data-t="fDep"></span><input id="rDep" type="date"></label></div>
+    <label class="f"><span data-t="fDate"></span><input id="rDate" autocomplete="off"></label>
+    <div class="f prow" id="rPeopleRow"><span data-t="fPeople"></span>
+      <span class="stp"><button type="button" id="pm" aria-label="−">−</button><output id="pn">2</output><button type="button" id="pp" aria-label="+">+</button></span></div>
+    <label class="f"><span id="rNoteL"></span><textarea id="rNote" rows="3"></textarea></label>
+    <p class="serr" id="sErr" role="alert"></p>
+    <div class="acts sacts">
+      <a class="primary" id="rWa" target="_blank" rel="noopener">WhatsApp</a>
+      <a id="rSms" target="_top" data-t="byMail"></a>
+      <a href="#" id="rClose" data-t="back"></a>
+    </div>
+    <p class="small" data-t="sHint"></p>
+  </div>
+</div>
 <script>
 const T={
  fr:{tBar:"Honesty Bar",tGuide:"Alentours",tInfos:"Bienvenue",welcome:"Bienvenue",
   lede:"Make yourself at home.",network:"Réseau",password:"Mot de passe",copy:"Copier",copied:"Copié",
-  hours:"Horaires",checkin:"Arrivée",checkout:"Départ",inT:"à partir de 16 h",outT:"avant 11 h",addr:"Adresse",gate:"Accès à la propriété",gateCode:"Code du portail",gateTxt:"Le même code ouvre et ferme le portail.",breakfast:"Petit-déjeuner",contact:"Nous joindre",formT:"Avant votre arrivée",formReq:"* obligatoire",formTxt:"Quelques détails à nous confier pour préparer au mieux votre séjour à la Farmhouse.",formBtn:"Compléter mes informations",
+  hours:"Horaires",checkin:"Arrivée",checkout:"Départ",inT:"à partir de 16 h",outT:"avant 11 h",addr:"Adresse",gate:"Accès à la propriété",gateCode:"Code du portail",gateTxt:"Le même code ouvre et ferme le portail.",breakfast:"Petit-déjeuner",prepT:"Préparer votre séjour",prepTxt:"Nos moments à réserver à l’avance. Envoyez-nous votre demande, nous vous confirmons rapidement.",gouterT:"Le goûter de la Farmhouse",gouterP:"25 € / pers.",gouterD:"Gaufres maison, sélection de confitures et pâte à tartiner, un café ou un thé. À réserver la veille.",gouterB:"Réserver",picnicT:"Le panier pique-nique",picnicP:"65 € pour deux",picnicD:"Soit 32,50 € par personne, à partir de deux personnes. À réserver à l’avance.",picnicB:"Réserver",tableT:"La table du chef",tableP:"85 € / pers.",tableD:"Le vendredi soir, menu de saison en quatre temps, 14 couverts. Un autre soir ? Demandez-nous, nous ferons notre possible.",tableB:"Demander une table",customT:"Un moment sur mesure",customP:"",customD:"Gâteau d’anniversaire, bouteille en chambre, attention particulière… Dites-nous, nous revenons vers vous.",customB:"Faire une demande",fName:"Votre nom",fRoom:"Votre chambre",eRoom:"Indiquez votre chambre.",roomW:"Chambre",fArr:"Arrivée",fDep:"Départ",eStay:"Indiquez vos dates de séjour.",byMail:"Par e-mail",sendingMail:"Envoi en cours…",sentMail:"Merci ! Votre demande nous est bien parvenue, nous revenons vers vous rapidement.",failMail:"L’envoi n’a pas fonctionné. Essayez par WhatsApp.",hello:"Bonjour,",bye:"Merci beaucoup,",stayW:"séjour du",toW:"au",estW:"Montant estimé",subjW:"Demande de réservation",wGouter:"Je souhaiterais réserver le goûter de la Farmhouse",wPicnic:"Je souhaiterais réserver le panier pique-nique",wTable:"Je souhaiterais réserver la table du chef",wCustom:"Je souhaiterais vous faire une demande sur mesure",forW:"pour",onW:"le",fDate:"Date souhaitée",fPeople:"Nombre de personnes",nNote:"Précisions (allergies, heure…)",nCustom:"Votre demande",sHint:"Par e-mail, votre demande nous est envoyée directement. Par WhatsApp, le message s’ouvre déjà rédigé : il ne reste qu’à appuyer sur Envoyer.",back:"Annuler",eName:"Indiquez votre nom.",eDate:"Indiquez la date souhaitée.",eCustom:"Décrivez votre demande.",reqWord:"Demande",pers:"personne(s)",dateW:"Date",noteW:"Précisions",contact:"Nous joindre",formT:"Avant votre arrivée",formReq:"* obligatoire",formTxt:"Quelques détails à nous confier pour préparer au mieux votre séjour à la Farmhouse.",formBtn:"Compléter mes informations",
   contactTxt:"Une question, un besoin pendant votre séjour ? Écrivez-nous ou appelez-nous.",
   call:"Appeler La Roquerie",maps:"Itinéraire",urgent:"Urgences",eu:"Numéro d’urgence européen"},
  en:{tBar:"Honesty Bar",tGuide:"Local guide",tInfos:"Welcome",welcome:"Welcome",
   lede:"Make yourself at home.",network:"Network",password:"Password",copy:"Copy",copied:"Copied",
-  hours:"Times",checkin:"Check-in",checkout:"Check-out",inT:"from 4 pm",outT:"by 11 am",addr:"Address",gate:"Getting in",gateCode:"Gate code",gateTxt:"The same code opens and closes the gate.",breakfast:"Breakfast",contact:"Get in touch",formT:"Before you arrive",formReq:"* required",formTxt:"A few details to share with us so we can prepare your stay at the Farmhouse.",formBtn:"Complete my details",
+  hours:"Times",checkin:"Check-in",checkout:"Check-out",inT:"from 4 pm",outT:"by 11 am",addr:"Address",gate:"Getting in",gateCode:"Gate code",gateTxt:"The same code opens and closes the gate.",breakfast:"Breakfast",prepT:"Plan your stay",prepTxt:"Our moments to book ahead. Send us your request and we’ll confirm shortly.",gouterT:"The Farmhouse goûter",gouterP:"€25 / person",gouterD:"Homemade waffles, a selection of jams and spreads, with a coffee or a tea. To be booked the day before.",gouterB:"Book",picnicT:"The picnic basket",picnicP:"€65 for two",picnicD:"That’s €32.50 per person, for two guests or more. To be booked in advance.",picnicB:"Book",tableT:"The chef’s table",tableP:"€85 / person",tableD:"Friday evenings, a four-course seasonal menu for 14 guests. Another evening? Ask us and we’ll do our best.",tableB:"Request a table",customT:"A bespoke moment",customP:"",customD:"A birthday cake, a bottle in your room, a special touch… Tell us and we’ll come back to you.",customB:"Make a request",fName:"Your name",fRoom:"Your room",eRoom:"Please enter your room.",roomW:"Room",fArr:"Arrival",fDep:"Departure",eStay:"Please enter your stay dates.",byMail:"By email",sendingMail:"Sending…",sentMail:"Thank you! Your request has reached us and we’ll be in touch shortly.",failMail:"Sending didn’t work. Please try WhatsApp.",hello:"Hello,",bye:"Many thanks,",stayW:"staying from",toW:"to",estW:"Estimated amount",subjW:"Booking request",wGouter:"I would like to book the Farmhouse goûter",wPicnic:"I would like to book the picnic basket",wTable:"I would like to book the chef’s table",wCustom:"I would like to make a bespoke request",forW:"for",onW:"on",fDate:"Preferred date",fPeople:"Number of guests",nNote:"Details (allergies, time…)",nCustom:"Your request",sHint:"By email, your request is sent to us directly. With WhatsApp, the message opens already written: just tap Send.",back:"Cancel",eName:"Please enter your name.",eDate:"Please enter the preferred date.",eCustom:"Please describe your request.",reqWord:"Request",pers:"guest(s)",dateW:"Date",noteW:"Details",contact:"Get in touch",formT:"Before you arrive",formReq:"* required",formTxt:"A few details to share with us so we can prepare your stay at the Farmhouse.",formBtn:"Complete my details",
   contactTxt:"A question or anything you need during your stay? Message or call us.",
   call:"Call La Roquerie",maps:"Directions",urgent:"Emergencies",eu:"European emergency number"}
 };
-const V="2026-09-28i";
+const V="2026-09-28m";
 const SRC={bar:l=>`honesty-bar.html?embed=1&lang=${l}&v=${V}`, guide:l=>(l==="en"?"en.html":"index.html")+"?embed=1&v="+V};
 let lang="fr";
 try{const s=localStorage.getItem("hb-lang"); if(s==="fr"||s==="en") lang=s;}catch(e){}
@@ -234,7 +303,59 @@ document.getElementById("copy").onclick=async e=>{
   try{await navigator.clipboard.writeText(document.getElementById("pw").textContent);e.target.textContent=T[lang].copied;setTimeout(()=>e.target.textContent=T[lang].copy,1500);}catch(err){}
 };
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
-applyLang(); show(location.hash.slice(1)||"infos");
+applyLang();
+(function(){
+  const PHONE="+33673645128", PRICE={gouter:25,picnic:32.5,table:85}, MIN={gouter:1,picnic:2,table:1,custom:0};
+  const sh=document.getElementById("sheet"); let cur=null, n=2;
+  const $=id=>document.getElementById(id);
+  const fmtE=v=>{const r=Math.round(v*100)/100, s=Number.isInteger(r)?String(r):r.toFixed(2); return lang==="fr"?s.replace(".",",")+" €":"€"+s;};
+  function upd(){ $("pn").textContent=n; $("pm").disabled=n<=MIN[cur]; build(); }
+  $("pm").onclick=()=>{if(n>MIN[cur]){n--;upd();}}; $("pp").onclick=()=>{if(n<30){n++;upd();}};
+  const dfmt=s=>{if(!s)return"";const [y,m,d]=s.split("-");return `${d}/${m}/${y}`;};
+  function build(){
+    const L=T[lang], name=$("rName").value.trim(), room=$("rRoom").value.trim(), arr=$("rArr").value, dep=$("rDep").value, date=$("rDate").value.trim(), note=$("rNote").value.trim();
+    let e=""; if(!name) e=L.eName; else if(!room) e=L.eRoom; else if(!arr||!dep) e=L.eStay; else if(cur!=="custom"&&!date) e=L.eDate; else if(cur==="custom"&&!note) e=L.eCustom;
+    const W={gouter:L.wGouter,picnic:L.wPicnic,table:L.wTable,custom:L.wCustom}[cur];
+    let first=W;
+    if(cur!=="custom") first+=` ${L.forW} ${n} ${L.pers}`;
+    if(date) first+=`, ${L.onW} ${date}`;
+    first+= cur==="custom" ? " :" : ".";
+    const lines=[L.hello,"",first];
+    if(cur==="custom"&&note) lines.push(note);
+    if(PRICE[cur]) lines.push(`${L.estW} : ${fmtE(n*PRICE[cur])}`);
+    if(cur!=="custom"&&note) lines.push(`${L.noteW} : ${note}`);
+    lines.push("",L.bye,name,`${L.roomW} ${room} – ${L.stayW} ${dfmt(arr)} ${L.toW} ${dfmt(dep)}`);
+    const body=lines.join("\n"), x=encodeURIComponent(body); window.__rb=body; window.__rs=`${L.subjW} – ${L[cur+"T"]} – ${name}`;
+    const subj=encodeURIComponent(`${L.subjW} – ${L[cur+"T"]} – ${name}`);
+    $("rSms").href=`mailto:contact@laroquerie.com?subject=${subj}&body=${x}`; $("rWa").href=`https://wa.me/${PHONE.slice(1)}?text=${x}`;
+    return e;
+  }
+  ["rName","rRoom","rArr","rDep","rDate","rNote"].forEach(id=>$(id).addEventListener("input",()=>{build();$("sErr").textContent="";}));
+  $("rSms").addEventListener("click",ev=>{
+    ev.preventDefault(); const e=build(), L=T[lang], s=$("sErr");
+    if(e){ s.style.color=""; s.textContent=e; return; }
+    try{localStorage.setItem("hb-who",JSON.stringify({name:$("rName").value.trim(),room:$("rRoom").value.trim(),arr:$("rArr").value,dep:$("rDep").value}));}catch(_){}
+    if($("rSms").dataset.busy) return; $("rSms").dataset.busy="1"; s.style.color="#C9D8C6"; s.textContent=L.sendingMail;
+    fetch("https://formsubmit.co/ajax/contact@laroquerie.com",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify({_subject:window.__rs,_template:"box",_captcha:"false",message:window.__rb,Nom:$("rName").value.trim(),Chambre:$("rRoom").value.trim()})})
+     .then(r=>r.json()).then(j=>{ if(!(j&&String(j.success)==="true")) throw 0; s.textContent=L.sentMail; $("rSms").style.display="none"; $("rWa").style.display="none"; })
+     .catch(()=>{ s.style.color=""; s.textContent=L.failMail; })
+     .finally(()=>{ delete $("rSms").dataset.busy; });
+  });
+  [$("rWa")].forEach(a=>a.addEventListener("click",ev=>{const e=build(); if(e){ev.preventDefault();$("sErr").textContent=e;} else {try{localStorage.setItem("hb-who",JSON.stringify({name:$("rName").value.trim(),room:$("rRoom").value.trim(),arr:$("rArr").value,dep:$("rDep").value}));}catch(_){}}}));
+  document.querySelectorAll(".ask").forEach(btn=>btn.onclick=()=>{
+    cur=btn.dataset.k; const L=T[lang]; n=Math.max(MIN[cur],cur==="picnic"?2:cur==="custom"?0:2);
+    $("sT").textContent=L[cur+"T"]; $("sSub").textContent=L[cur+"P"]||"";
+    $("rPeopleRow").style.display=cur==="custom"?"none":"flex";
+    $("rNoteL").textContent=cur==="custom"?L.nCustom:L.nNote;
+    try{ const w=JSON.parse(localStorage.getItem("hb-who")||"null")||{}; if(!$("rName").value) $("rName").value=w.name||""; if(!$("rRoom").value) $("rRoom").value=w.room||""; if(!$("rArr").value) $("rArr").value=w.arr||""; if(!$("rDep").value) $("rDep").value=w.dep||""; }catch(_){}
+    $("sErr").textContent=""; $("sErr").style.color=""; $("rSms").style.display=""; $("rWa").style.display=""; upd(); sh.classList.add("open"); $("rName").focus();
+  });
+  $("rClose").onclick=e=>{e.preventDefault();sh.classList.remove("open");};
+  sh.addEventListener("click",e=>{if(e.target===sh)sh.classList.remove("open");});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")sh.classList.remove("open");});
+})();
+show(location.hash.slice(1)||"infos");
 </script>
 </body>
 </html>

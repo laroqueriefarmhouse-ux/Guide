@@ -133,7 +133,7 @@ header+.orn,.drinks-title+.orn{display:none}
 .intro:first-of-type{margin-top:24px}
 .intro{font-size:17px;line-height:1.5}
 .steps{border-color:rgba(143,176,147,.3);margin-top:18px}
-.drinks-title,h2.sec[data-t="reqT"],h2.sec[data-t="details"]{font-family:var(--serif);font-weight:500;font-size:26px;letter-spacing:0;text-align:left;border-top:1px solid rgba(143,176,147,.3);border-bottom:0;padding:22px 0 0;margin:36px 0 4px}
+.drinks-title,h2.sec[data-t="momT"],h2.sec[data-t="details"]{font-family:var(--serif);font-weight:500;font-size:26px;letter-spacing:0;text-align:left;border-top:1px solid rgba(143,176,147,.3);border-bottom:0;padding:22px 0 0;margin:36px 0 4px}
 #menu h2.sec,h2.sec[data-t="wines"]{font-family:var(--sans);font-weight:500;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#8FB093;border-bottom:0;margin:22px 0 2px;padding:0}
 .req{border-color:rgba(143,176,147,.3);margin-top:16px}
 .req h3{font-size:22px}
@@ -153,6 +153,16 @@ html.embed header .logo{display:none!important}
 .send{font:500 13.5px var(--sans)!important;letter-spacing:.05em;padding:10px 22px!important;border-radius:22px!important}
 .panel .acts a,.panel .acts button{font:500 13.5px var(--sans)!important;letter-spacing:.05em;padding:10px 22px!important;border-radius:22px!important;padding:12px 22px!important}
 .chips button{font-size:13px!important;padding:6px 12px!important}
+.bt-h{font:500 13px var(--sans);color:var(--forest2);margin:16px 0 4px;letter-spacing:.02em}
+.bt-row{gap:10px}
+.bt-n{flex:1;min-width:0;font:17px var(--serif);font-weight:500;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--sage);border-radius:0;padding:6px 0}
+.bt-n::placeholder{color:#7d8f80;font-style:italic}
+.bt-row .amount input{width:64px}
+.bt-x{width:28px;height:28px;border-radius:50%;border:0;background:transparent;color:var(--forest2);font:16px var(--sans);cursor:pointer;flex:none}
+.bt-add{margin:6px 0 2px;font:500 13px var(--sans);letter-spacing:.04em;color:var(--forest2);background:transparent;border:0;padding:6px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.bt-n:focus,.bt-row .amount input:focus{outline:none;border-color:var(--forest)}
+.okmsg{font:14px var(--sans);color:#C9D8C6;min-height:1em;margin:10px 0 0}
+.okmsg.bad{color:#E8A898}
 </style>
 </head>
 <body>
@@ -184,44 +194,22 @@ html.embed header .logo{display:none!important}
 
   <h2 class="sec" data-t="wines"></h2>
   <p class="note" data-t="wtxt"></p>
-  <div class="row"><span class="n" data-t="wq"></span><span id="st-wine"></span></div>
-  <div class="row"><span class="n"><span data-t="wa"></span><small data-t="wah"></small></span>
-    <span class="amount"><input id="wineAmt" inputmode="decimal" autocomplete="off"><span aria-hidden="true">€</span></span></div>
+  <div class="row"><span class="n"><span data-t="glassL"></span><small data-t="glassH"></small></span><span class="p">8 €</span><span id="st-glass"></span></div>
+  <p class="bt-h" data-t="btWine"></p>
+  <div class="bt-list" id="bt-wine"></div>
+  <button class="bt-add" type="button" data-list="bt-wine" data-t="btAdd"></button>
+  <p class="bt-h" data-t="btChamp"></p>
+  <div class="bt-list" id="bt-champ"></div>
+  <button class="bt-add" type="button" data-list="bt-champ" data-t="btAdd"></button>
   <p class="note" data-t="wnote"></p>
 
-  <h2 class="sec" data-t="reqT"></h2>
-  <section class="req">
-    <h3 data-t="picnicT"></h3>
-    <p><span data-t="picnicD"></span><i data-t="picnicX"></i></p>
-    <div class="row"><span class="n" data-t="guests"></span><span id="st-picnic"></span></div>
-    <input id="picnicNote" class="mnote" autocomplete="off">
-    <button class="go" type="button" id="go-picnic" data-t="askPicnic"></button>
-  </section>
-  <section class="req">
-    <h3 data-t="gouterT"></h3>
-    <p><span data-t="gouterD"></span><i data-t="gouterX"></i></p>
-    <div class="row"><span class="n" data-t="guests"></span><span id="st-gouter"></span></div>
-    <input id="gouterNote" class="mnote" autocomplete="off">
-    <button class="go" type="button" id="go-gouter" data-t="askGouter"></button>
-  </section>
-  <section class="req">
-    <h3 data-t="tableT"></h3>
-    <p><span data-t="tableD"></span><i data-t="tableX"></i></p>
-    <div class="chips" id="days" role="group">
-      <button type="button" data-d="fri" aria-pressed="true" data-t="dFri"></button>
-      <button type="button" data-d="tonight" aria-pressed="false" data-t="dTonight"></button>
-      <button type="button" data-d="other" aria-pressed="false" data-t="dOther"></button>
-    </div>
-    <div class="row"><span class="n" data-t="guests"></span><span id="st-table"></span></div>
-    <input id="tNote" class="mnote" autocomplete="off">
-    <button class="go" type="button" id="goTable" data-t="askTable"></button>
-  </section>
-  <section class="req">
-    <h3 data-t="customT"></h3>
-    <p data-t="customD"></p>
-    <textarea id="cNote"></textarea>
-    <button class="go" type="button" id="goCustom" data-t="askCustom"></button>
-  </section>
+  <h2 class="sec" data-t="momT"></h2>
+  <p class="note" data-t="momNote"></p>
+  <div class="row"><span class="n"><span data-t="gouterL"></span><small data-t="perP"></small></span><span class="p">25 €</span><span id="st-gouter"></span></div>
+  <div class="row"><span class="n"><span data-t="picnicL"></span><small data-t="forTwo"></small></span><span class="p">65 €</span><span id="st-picnic"></span></div>
+  <div class="row"><span class="n"><span data-t="tableL"></span><small data-t="perP"></small></span><span class="p">85 €</span><span id="st-table"></span></div>
+  <div class="row"><span class="n"><span data-t="customL"></span><small data-t="customH"></small></span>
+    <span class="amount"><input id="customAmt" inputmode="decimal" autocomplete="off"><span aria-hidden="true">€</span></span></div>
 
   <h2 class="sec" data-t="details"></h2>
   <div class="who">
@@ -244,10 +232,11 @@ html.embed header .logo{display:none!important}
     <ul class="recap" id="recap"></ul>
     <div class="err" id="err" hidden></div>
     <div class="acts" id="acts">
-      <a class="primary" id="sms" target="_top" data-t="sms"></a>
+      <a class="primary" id="sms" target="_top" data-t="email"></a>
       <a class="ghost" id="wa" target="_blank" rel="noopener" data-t="whatsapp"></a>
       <button class="ghost" id="close" type="button" data-t="back"></button>
     </div>
+    <p class="okmsg" id="okmsg" role="status"></p>
     <p class="small" data-t="hint"></p>
   </div>
 </div>
@@ -274,16 +263,16 @@ const T={
   intro:"Le bar est à vous, à toute heure. Servez-vous selon vos envies, notez simplement ce que vous avez choisi, puis envoyez-nous votre fiche. Nous ajouterons vos consommations à votre note de fin de séjour. Ici, on fonctionne comme dans une maison de famille : simplement, librement, et en confiance.",s1:"Servez-vous.",s2:"Notez votre nom, votre chambre et vos consommations.",s3:"Envoyez-nous votre fiche.",
   gt:"Le goûter de la Farmhouse",gd:"Gaufres maison, sélection de confitures et pâte à tartiner, un café ou un thé.",
   gp:"25 € par personne",drinks:"Boissons",wines:"Vins & champagnes",
-  wtxt:"Notre sélection de vins et champagnes est disponible sur demande.",
+  wtxt:"Notre sélection de vins et champagnes est disponible sur demande. Indiquez le prix de chaque bouteille, selon la carte.",
   wnote:"Notre carte évolue au fil des découvertes du chef et de ses suggestions d’accords mets et vins.",
-  wq:"Bouteilles ou verres",wa:"Montant",wah:"selon le prix indiqué",details:"Vos coordonnées",
+  glassL:"Verre de vin",glassH:"Rouge, rosé ou blanc",btWine:"Bouteilles de vin",btChamp:"Bouteilles de champagne",btAdd:"+ Ajouter une bouteille",btOne:"Bouteille",btPrice:"Prix de la bouteille",btDel:"Retirer",btWineOne:"Bouteille de vin",btChampOne:"Bouteille de champagne",sendingMail:"Envoi en cours…",sentMail:"Merci ! Votre fiche nous est bien parvenue.",failMail:"L’envoi n’a pas fonctionné. Essayez par WhatsApp.",mailHello:"Bonjour,\n\nVoici ma fiche Honesty Bar :",mailBye:"Merci beaucoup,",email:"Envoyer par e-mail",wq:"Bouteilles ou verres",wa:"Montant",wah:"selon le prix indiqué",details:"Vos coordonnées",
   name:"Nom",room:"Chambre",date:"Date",foot:"Merci de votre confiance & bon séjour à La Roquerie.",
   send:"Envoyer ma fiche",recapT:"Votre fiche",sms:"Envoyer par SMS",whatsapp:"Envoyer par WhatsApp",back:"Modifier",
   hint:"Votre application de messages s’ouvre avec la fiche déjà rédigée : il ne reste qu’à appuyer sur Envoyer.",
   errEmpty:"Ajoutez au moins un produit.",errWho:"Indiquez votre nom et votre chambre pour que nous puissions vous l’attribuer.",
   wineLine:"Vins & champagnes",room2:"Chambre",total:"Total",person:"pers.",
   msgHead:"Honesty Bar – La Roquerie",
-  gorder:"À réserver la veille.",reqT:"Les moments de la Farmhouse",tableT:"La table du chef",
+  gorder:"À réserver la veille.",reqT:"Les moments de la Farmhouse",momT:"Moments à régler sur place",momNote:"Si votre goûter, panier pique-nique, dîner ou moment sur mesure n’a pas été réglé à la réservation, ajoutez-le ici. Déjà réglé ? Inutile de le noter.",gouterL:"Goûter de la Farmhouse",picnicL:"Panier pique-nique",tableL:"Table du chef",customL:"Moment sur mesure",customH:"Montant convenu",perP:"Par personne",forTwo:"Pour deux personnes",tableT:"La table du chef",
   picnicT:"Le panier pique-nique",picnicD:"40 € par personne, à partir de deux personnes.",picnicX:"À réserver à l’avance.",askPicnic:"Réserver un panier",
   gouterT:"Le goûter de la Farmhouse",gouterD:"Gaufres maison, sélection de confitures et pâte à tartiner, un café ou un thé. 25 € par personne.",gouterX:"À réserver la veille.",askGouter:"Réserver le goûter",
   mNote:"Précisions : date, heure, allergies…",
@@ -299,16 +288,16 @@ const T={
   intro:"The bar is yours, at any time. Help yourself to whatever you fancy, simply note what you have chosen, then send us your sheet. We will add your drinks to your bill at the end of your stay. Here, things work as they do in a family home: simply, freely, and on trust.",s1:"Help yourself.",s2:"Note your name, your room and what you have had.",s3:"Send us your sheet.",
   gt:"The Farmhouse goûter",gd:"Homemade waffles, a selection of jams and spreads, with a coffee or a tea.",
   gp:"25 € per person",drinks:"Drinks",wines:"Wines & champagnes",
-  wtxt:"Our selection of wines and champagnes is available on request.",
+  wtxt:"Our selection of wines and champagnes is available on request. Enter the price of each bottle, as shown on the list.",
   wnote:"Our wine list changes regularly to reflect the chef’s latest discoveries and suggested pairings.",
-  wq:"Bottles or glasses",wa:"Amount",wah:"as priced",details:"Your details",
+  glassL:"Glass of wine",glassH:"Red, rosé or white",btWine:"Bottles of wine",btChamp:"Bottles of champagne",btAdd:"+ Add a bottle",btOne:"Bottle",btPrice:"Bottle price",btDel:"Remove",btWineOne:"Bottle of wine",btChampOne:"Bottle of champagne",sendingMail:"Sending…",sentMail:"Thank you! Your sheet has reached us.",failMail:"Sending didn’t work. Please try WhatsApp.",mailHello:"Hello,\n\nHere is my Honesty Bar sheet:",mailBye:"Many thanks,",email:"Send by email",wq:"Bottles or glasses",wa:"Amount",wah:"as priced",details:"Your details",
   name:"Name",room:"Room",date:"Date",foot:"Thank you for your honesty & enjoy your stay at La Roquerie.",
   send:"Send my sheet",recapT:"Your sheet",sms:"Send by text message",whatsapp:"Send by WhatsApp",back:"Edit",
   hint:"Your messaging app opens with the sheet already written: just tap Send.",
   errEmpty:"Add at least one item.",errWho:"Enter your name and room so we can add this to your stay.",
   wineLine:"Wines & champagnes",room2:"Room",total:"Total",person:"guests",
   msgHead:"Honesty Bar – La Roquerie",
-  gorder:"To be booked the day before.",reqT:"Farmhouse moments",tableT:"The chef’s table",
+  gorder:"To be booked the day before.",reqT:"Farmhouse moments",momT:"Moments to settle here",momNote:"If your goûter, picnic basket, dinner or bespoke moment wasn’t paid when you booked, add it here. Already paid? No need to add it.",gouterL:"Farmhouse goûter",picnicL:"Picnic basket",tableL:"Chef’s table",customL:"Bespoke moment",customH:"Amount agreed",perP:"Per person",forTwo:"For two",tableT:"The chef’s table",
   picnicT:"The picnic basket",picnicD:"40 € per person, for two guests or more.",picnicX:"To be booked in advance.",askPicnic:"Book a basket",
   gouterT:"The Farmhouse goûter",gouterD:"Homemade waffles, a selection of jams and spreads, with a coffee or a tea. 25 € per person.",gouterX:"To be booked the day before.",askGouter:"Book the goûter",
   mNote:"Details: date, time, allergies…",
@@ -326,7 +315,7 @@ try{const s=localStorage.getItem("hb-lang"); if(s==="en"||s==="fr") lang=s;}catc
 const PRM=new URLSearchParams(location.search);
 if(PRM.get("lang")==="en"||PRM.get("lang")==="fr") lang=PRM.get("lang");
 if(PRM.get("embed")==="1") document.documentElement.classList.add("embed");
-const fmt=n=>(Math.round(n*100)/100).toString().replace(".",",")+" €";
+const fmt=n=>{const r=Math.round(n*100)/100; return (Number.isInteger(r)?String(r):r.toFixed(2)).replace(".",",")+" €";};
 function stepper(id,host,min=0){
   q[id]=min;
   const w=document.createElement("span"); w.className="step";
@@ -348,9 +337,9 @@ function buildMenu(){
   });
 }
 function applyLang(){
-  document.documentElement.lang=lang; document.getElementById("wineAmt").setAttribute("aria-label",T[lang].wa+" (€)");
+  document.documentElement.lang=lang; document.querySelectorAll(".bt-list").forEach(l=>{ if(typeof renumber==="function") renumber(l); }); document.querySelectorAll(".bt-row").forEach(r=>{r.querySelector(".bt-p").setAttribute("aria-label",T[lang].btPrice);r.querySelector(".bt-x").setAttribute("aria-label",T[lang].btDel);});
   document.querySelectorAll("[data-t]").forEach(e=>e.textContent=T[lang][e.dataset.t]);
-  tNote.placeholder=T[lang].tNote; ["picnic","gouter"].forEach(k=>{const e=document.getElementById(k+"Note");e.placeholder=T[lang].mNote;e.setAttribute("aria-label",T[lang].mNote);}); cNote.placeholder=T[lang].cNote; cNote.setAttribute("aria-label",T[lang].cNote); tNote.setAttribute("aria-label",T[lang].tNote);
+  document.getElementById("customAmt").setAttribute("aria-label",T[lang].customL+" (€)");
   document.querySelectorAll("[data-fr]").forEach(e=>e.textContent=e.dataset[lang]);
   document.querySelectorAll("[data-sec]").forEach(e=>e.textContent=JSON.parse(e.dataset.sec)[lang]);
   document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===lang));
@@ -358,9 +347,17 @@ function applyLang(){
 }
 function lines(){
   const out=[];
+  if(q.gouter) out.push([`${q.gouter} × ${T[lang].gouterL}`,q.gouter*25]);
+  if(q.picnic) out.push([`${q.picnic} × ${T[lang].picnicL}`,q.picnic*65]);
+  if(q.table) out.push([`${q.table} × ${T[lang].tableL}`,q.table*85]);
+  const ca=parseFloat((document.getElementById("customAmt").value||"").replace(",","."));
+  if(ca>0) out.push([T[lang].customL,ca]);
   ITEMS.forEach(g=>g.list.forEach(([id,p,fr,en])=>{ if(q[id]) out.push([`${q[id]} × ${lang==="fr"?fr:en}`,q[id]*p]); }));
-  const amt=parseFloat((document.getElementById("wineAmt").value||"").replace(",","."));
-  if(q.wine||amt>0) out.push([`${q.wine?q.wine+" × ":""}${T[lang].wineLine}`, isNaN(amt)?0:amt]);
+  if(q.glass) out.push([`${q.glass} × ${T[lang].glassL}`,q.glass*8]);
+  [["bt-wine","btWineOne"],["bt-champ","btChampOne"]].forEach(([id,key])=>document.querySelectorAll("#"+id+" .bt-row").forEach(r=>{
+    const pr=parseFloat((r.querySelector(".bt-p").value||"").replace(",","."));
+    if(pr>0) out.push([T[lang][key],pr]);
+  }));
   return out;
 }
 function calc(){ const t=lines().reduce((a,l)=>a+l[1],0); document.getElementById("total").textContent=fmt(t); return t; }
@@ -372,7 +369,7 @@ function showSheet(title,whoTxt,recapHtml,err,body,hint){
   ["sms","wa"].forEach(id=>document.getElementById(id).style.display=err?"none":"block");
   document.querySelector(".small").textContent=hint;
   if(!err){ const x=encodeURIComponent(body);
-    document.getElementById("sms").href=`sms:${PHONE}?&body=${x}`;
+    document.getElementById("sms").href=`mailto:contact@laroquerie.com?subject=${encodeURIComponent(window.__subj||"Honesty Bar")}&body=${x}`;
     document.getElementById("wa").href=`https://wa.me/${PHONE.replace("+","")}?text=${x}`; }
   sheet.classList.add("open"); document.getElementById("close").focus();
 }
@@ -383,7 +380,8 @@ function openSheet(){
   const L=lines(), t=calc(), w=who();
   const recap=L.map(l=>`<li><span>${l[0]}</span><span>${fmt(l[1])}</span></li>`).join("")+`<li class="tot"><span>${T[lang].total}</span><span>${fmt(t)}</span></li>`;
   const err=!L.length?T[lang].errEmpty:(!w.ok?T[lang].errWho:"");
-  const body=[T[lang].msgHead,w.line,"",...L.map(l=>`${l[0]} : ${fmt(l[1])}`),"",`${T[lang].total} : ${fmt(t)}`].join("\n");
+  const body=[T[lang].mailHello,"",...L.map(l=>`${l[0]} : ${fmt(l[1])}`),"",`${T[lang].total} : ${fmt(t)}`,"",T[lang].mailBye,w.line].join("\n");
+  window.__body=body; window.__subj=`${T[lang].msgHead} – ${w.name}${w.room?" – "+T[lang].room2+" "+w.room:""}`;
   showSheet(T[lang].recapT,w.line,recap,err,body,T[lang].hint);
 }
 const esc=v=>v.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -407,18 +405,38 @@ function askCustom(){
   showSheet(T[lang].customT,w.line,note?`<li><span>${esc(note)}</span></li>`:"",err,[T[lang].customHead,w.line,"",note].join("\n"),T[lang].hintReq);
 }
 const fName=document.getElementById("fName"),fRoom=document.getElementById("fRoom"),fDate=document.getElementById("fDate"),sheet=document.getElementById("sheet");
-buildMenu(); stepper("wine",document.getElementById("st-wine"));
-const tNote=document.getElementById("tNote"),cNote=document.getElementById("cNote");
-stepper("table",document.getElementById("st-table"));
-stepper("picnic",document.getElementById("st-picnic"),2); stepper("gouter",document.getElementById("st-gouter"),1);
-document.getElementById("go-picnic").onclick=()=>askMoment("picnic",40); document.getElementById("go-gouter").onclick=()=>askMoment("gouter",25);
-document.querySelectorAll("#days button").forEach(b=>b.onclick=()=>{day=b.dataset.d;document.querySelectorAll("#days button").forEach(x=>x.setAttribute("aria-pressed",x===b));});
-document.getElementById("goTable").onclick=askTable; document.getElementById("goCustom").onclick=askCustom;
-document.getElementById("wineAmt").addEventListener("input",e=>{e.target.value=e.target.value.replace(/[^0-9.,]/g,"");calc();});
+buildMenu(); stepper("glass",document.getElementById("st-glass"));
+stepper("picnic",document.getElementById("st-picnic")); stepper("gouter",document.getElementById("st-gouter")); stepper("table",document.getElementById("st-table"));
+document.getElementById("customAmt").addEventListener("input",e=>{e.target.value=e.target.value.replace(/[^0-9.,]/g,"");calc();});
+function renumber(list){ [...list.children].forEach((r,i)=>{ r.querySelector(".bt-l").textContent=T[lang].btOne+" "+(i+1); r.querySelector(".bt-x").style.visibility=i===0?"hidden":"visible"; }); }
+function addBottle(listId){
+  const list=document.getElementById(listId), r=document.createElement("div"); r.className="row bt-row";
+  r.innerHTML='<span class="n bt-l"></span><span class="amount"><input class="bt-p" inputmode="decimal" autocomplete="off"><span aria-hidden="true">€</span></span><button type="button" class="bt-x">×</button>';
+  r.querySelector(".bt-p").addEventListener("input",e=>{e.target.value=e.target.value.replace(/[^0-9.,]/g,"");calc();});
+  r.querySelector(".bt-x").onclick=()=>{r.remove(); renumber(list); calc();};
+  list.appendChild(r); renumber(list); applyLang();
+  return r;
+}
+document.querySelectorAll(".bt-add").forEach(b=>b.onclick=()=>{addBottle(b.dataset.list).querySelector(".bt-p").focus();});
+addBottle("bt-wine"); addBottle("bt-champ");
 const d=new Date(); fDate.value=String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0")+"/"+d.getFullYear();
 try{const w=JSON.parse(localStorage.getItem("hb-who")||"null"); if(w){fName.value=w.name||"";fRoom.value=w.room||"";}}catch(e){}
 document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem("hb-lang",lang);}catch(e){}applyLang();calc();});
-document.getElementById("open").onclick=openSheet;
+
+function fsSend(subject,body,extra){
+  const data=Object.assign({_subject:subject,_template:"box",_captcha:"false",message:body},extra||{});
+  return fetch("https://formsubmit.co/ajax/contact@laroquerie.com",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)})
+    .then(r=>r.json()).then(j=>{ if(!(j&&String(j.success)==="true")) throw new Error("fail"); });
+}
+document.getElementById("sms").addEventListener("click",ev=>{
+  ev.preventDefault(); const a=ev.currentTarget, ok=document.getElementById("okmsg"), L=T[lang];
+  if(a.dataset.busy) return; a.dataset.busy="1"; ok.className="okmsg"; ok.textContent=L.sendingMail;
+  fsSend(window.__subj||"Honesty Bar",window.__body||"",{Nom:fName.value.trim(),Chambre:fRoom.value.trim()})
+   .then(()=>{ ok.textContent=L.sentMail; document.getElementById("sms").style.display="none"; document.getElementById("wa").style.display="none"; })
+   .catch(()=>{ ok.className="okmsg bad"; ok.textContent=L.failMail; })
+   .finally(()=>{ delete a.dataset.busy; });
+});
+document.getElementById("open").onclick=()=>{document.getElementById("okmsg").textContent="";openSheet();};
 document.getElementById("close").onclick=()=>sheet.classList.remove("open");
 sheet.addEventListener("click",e=>{if(e.target===sheet)sheet.classList.remove("open");});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")sheet.classList.remove("open");});
